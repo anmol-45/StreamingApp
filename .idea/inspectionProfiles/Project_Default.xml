@@ -1,0 +1,41 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="VulnerableLibrariesLocal" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="isIgnoringEnabled" value="true" />
+      <option name="ignoredModules">
+        <list>
+          <option value="video-upload-service" />
+          <option value="video-upload-service" />
+          <option value="video-upload-service" />
+          <option value="video-upload-service" />
+          <option value="user-service" />
+          <option value="user-service" />
+          <option value="user-service" />
+        </list>
+      </option>
+      <option name="ignoredPackages">
+        <list>
+          <option value="org.apache.tomcat.embed:tomcat-embed-core:10.1.40" />
+          <option value="org.apache.httpcomponents:httpclient:4.4" />
+          <option value="org.springframework:spring-context:6.2.6" />
+          <option value="org.springframework:spring-web:6.2.6" />
+          <option value="org.springframework:spring-context:6.2.6" />
+          <option value="org.springframework:spring-web:6.2.6" />
+          <option value="org.apache.tomcat.embed:tomcat-embed-core:10.1.40" />
+        </list>
+      </option>
+      <option name="ignoredReasons">
+        <list>
+          <option value="Not exploitable" />
+          <option value="In progress" />
+          <option value="In progress" />
+          <option value="Fixed in branch" />
+          <option value="Not exploitable" />
+          <option value="Fixed in branch" />
+          <option value="Fixed in branch" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

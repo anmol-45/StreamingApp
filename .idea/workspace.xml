@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9214294e-a94f-4cc9-816d-77f510104b4b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/configFile/ApplicationConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/configFile/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/controllers/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/controllers/GoogleAuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/controllers/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/dto/AuthResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/dto/SignInRequestDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/dto/SignUpRequestDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/entities/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/entities/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/payload/CustomUserDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/repositories/AdminRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/repositories/UserRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/TokenContextService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/UserServiceImpl/AdminServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/UserServiceImpl/StudentServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/UserServiceImpl/TeacherServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/util/JwtAuthFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/util/JwtUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/util/RsaKeyUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/validation/CustomAccessDeniedHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/validation/UserValidation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/resources/private_key.pem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/resources/public_key.pem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/config/CloudConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/controller/VideoUploadController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/VideoDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Courses.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Video.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/payload/CustomMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/repositories/VideoRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/services/VideoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/services/videoServiceImpl/VideoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api-gateway/src/test/java/com/stream/app/api_gateway/ApiGatewayApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api-gateway/src/test/java/com/stream/app/api_gateway/ApiGatewayApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/discovery-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/discovery-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/discovery-service/src/test/java/com/stream/app/discovery_service/DiscoveryServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/discovery-service/src/test/java/com/stream/app/discovery_service/DiscoveryServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/user-service/src/test/java/com/stream/app/user_service/UserServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/test/java/com/stream/app/user_service/UserServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-stream-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-stream-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-stream-service/src/test/java/com/stream/app/video_stream_service/VideoStreamServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-stream-service/src/test/java/com/stream/app/video_stream_service/VideoStreamServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/test/java/com/stream/app/video_upload_service/VideoUploadServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/test/java/com/stream/app/video_upload_service/VideoUploadServiceApplicationTests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2ypUO8PwBez3J56etRVUpbNJnNr" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.UserServiceApplication.executor": "Run",
+    "Application.VideoUploadServiceApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/KIIT/Desktop/StreamingApp/backend/user-service/src/main/resources",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\KIIT\Desktop\StreamingApp\backend\user-service\src\main\resources" />
+      <recent name="C:\Users\KIIT\Desktop\StreamingApp\backend\user-service\src\main\java\com\stream\app\user_service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Upload-Video">
+    <configuration name="Upload-Video" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <envs>
+        <env name="SQL_PASSWORD" value="AnmolRS143@" />
+        <env name="SQL_ROOT" value="root" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.stream.app.video_upload_service.VideoUploadServiceApplication" />
+      <module name="video-upload-service" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="User-Service" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <envs>
+        <env name="GOOGLE_CLIENT_ID" value="82776662502-0a61fe8ksrignjmqrsth29phce40a8r0.apps.googleusercontent.com" />
+        <env name="GOOGLE_CLIENT_SECRET" value="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" />
+        <env name="SQL_PASSWORD" value="AnmolRS143@" />
+        <env name="SQL_ROOT" value="root" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.stream.app.user_service.UserServiceApplication" />
+      <module name="user-service" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.User-Service" />
+      <item itemvalue="Application.Upload-Video" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9214294e-a94f-4cc9-816d-77f510104b4b" name="Changes" comment="" />
+      <created>1750530973611</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750530973611</updated>
+    </task>
+    <servers />
+  </component>
+</project>
