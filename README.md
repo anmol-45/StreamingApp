@@ -58,9 +58,9 @@ StreamingApp/
 - **Tech**: Spring Cloud Gateway, Eureka Client
 - **Port**: `8080`
 - **Features**:
-    - Request routing
-    - Path rewriting
-    - Load balancing
+  - Request routing
+  - Path rewriting
+  - Load balancing
 
 ---
 
@@ -69,9 +69,9 @@ StreamingApp/
 - **Tech**: Spring Security, JWT
 - **Port**: `8081`
 - **Features**:
-    - Role-based auth (Student/Admin)
-    - Signup / Login / Token management
-    - Secure endpoints with JWT
+  - Role-based auth (Student/Admin)
+  - Signup / Login / Token management
+  - Secure endpoints with JWT
 
 ---
 
@@ -80,9 +80,9 @@ StreamingApp/
 - **Tech**: Spring Data JPA, Cloudinary, MySQL
 - **Port**: `8082`
 - **Features**:
-    - Multipart video upload
-    - Store file metadata in MySQL
-    - Upload to Cloudinary
+  - Multipart video upload
+  - Store file metadata in MySQL
+  - Upload to Cloudinary
 
 ---
 
