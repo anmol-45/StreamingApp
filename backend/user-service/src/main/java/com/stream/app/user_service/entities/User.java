@@ -1,27 +1,34 @@
 package com.stream.app.user_service.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Entity
+@Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id
+    private String id; // UUID or email/phone as PK
+
+    @Column(unique = true)
     private String email;
-    private String role;
-    private String password;
-    private String firstName;
-    private String lastName;
+
+    @Column(unique = true)
+    private String phone;
+
+    private String name;
+
     private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    private boolean isPremium = false;
 
 }

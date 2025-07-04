@@ -1,6 +1,6 @@
 package com.stream.app.user_service.payload;
 
-import com.stream.app.user_service.entities.User;
+import com.stream.app.user_service.entities.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,12 +18,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
+        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole().toString()));
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return null;
     }
 
     @Override

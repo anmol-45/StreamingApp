@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service("teacherService")
 @RequiredArgsConstructor
 @Slf4j
@@ -18,17 +20,17 @@ public class TeacherServiceImpl implements UserService {
     public User getDetails(String email) {
         log.debug("Getting teacher details for email: {}", email);
 
-        User user = userRepo.findByEmail(email);
-        if (user == null) {
+        Optional<User> user = userRepo.findByEmail(email);
+        if (user.isEmpty()) {
             log.warn("No user found with email: {}", email);
             return null;
         }
 
-        if (!"teacher".equalsIgnoreCase(user.getRole())) {
+        if (!"teacher".equalsIgnoreCase(user.get().getRole().toString())) {
             log.warn("Access denied: Not a teacher: {}", email);
             return null;
         }
 
-        return user;
+        return user.get();
     }
 }

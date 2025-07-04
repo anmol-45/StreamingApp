@@ -2,7 +2,7 @@ package com.stream.app.user_service.controllers;
 
 import com.stream.app.user_service.entities.Admin;
 import com.stream.app.user_service.entities.User;
-import com.stream.app.user_service.services.UserServiceImpl.AdminServiceImpl;
+//import com.stream.app.user_service.services.UserServiceImpl.AdminServiceImpl;
 import com.stream.app.user_service.services.UserServiceImpl.StudentServiceImpl;
 import com.stream.app.user_service.services.UserServiceImpl.TeacherServiceImpl;
 import com.stream.app.user_service.validation.UserValidation;
@@ -20,7 +20,7 @@ public class UserController {
 
     private final StudentServiceImpl studentService;
     private final TeacherServiceImpl teacherService;
-    private final AdminServiceImpl adminService;
+//    private final AdminServiceImpl adminService;
 
     @GetMapping("/student/{email}")
     @PreAuthorize("hasRole('STUDENT')")
@@ -63,39 +63,39 @@ public class UserController {
         }
     }
 
-    @GetMapping("/admin/{email}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> getAdminDetails(@PathVariable String email) {
-        log.info("Fetching admin details for email: {}", email);
-
-        if (!UserValidation.isEmailValid(email)) {
-            log.warn("Invalid email format: {}", email);
-            return ResponseEntity.badRequest().body("Invalid email format");
-        }
-
-        try {
-            User user = adminService.getDetails(email);
-            if (user == null) {
-                return ResponseEntity.badRequest().body("Admin not found");
-            }
-            return ResponseEntity.ok(user);
-        } catch (Exception e) {
-            log.error("Error fetching admin details: {}", e.getMessage());
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    }
-
-    @PostMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> saveAdminDetails(@RequestBody Admin adminUser) {
-        log.info("Fetching admin details to save in db: {}", adminUser);
-
-        if (!UserValidation.isEmailValid(adminUser.getEmail())) {
-            log.warn("Invalid email format: {}", adminUser.getEmail());
-            return ResponseEntity.badRequest().body("Invalid email format");
-        }
-
-        return adminService.saveDetails(adminUser);
-
-    }
+//    @GetMapping("/admin/{email}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> getAdminDetails(@PathVariable String email) {
+//        log.info("Fetching admin details for email: {}", email);
+//
+//        if (!UserValidation.isEmailValid(email)) {
+//            log.warn("Invalid email format: {}", email);
+//            return ResponseEntity.badRequest().body("Invalid email format");
+//        }
+//
+//        try {
+//            User user = adminService.getDetails(email);
+//            if (user == null) {
+//                return ResponseEntity.badRequest().body("Admin not found");
+//            }
+//            return ResponseEntity.ok(user);
+//        } catch (Exception e) {
+//            log.error("Error fetching admin details: {}", e.getMessage());
+//            return ResponseEntity.internalServerError().body(e.getMessage());
+//        }
+//    }
+//
+//    @PostMapping("/admin")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> saveAdminDetails(@RequestBody Admin adminUser) {
+//        log.info("Fetching admin details to save in db: {}", adminUser);
+//
+//        if (!UserValidation.isEmailValid(adminUser.getId())) {
+//            log.warn("Invalid email format: {}", adminUser.getId());
+//            return ResponseEntity.badRequest().body("Invalid email format");
+//        }
+//
+//        return adminService.saveDetails(adminUser);
+//
+//    }
 }

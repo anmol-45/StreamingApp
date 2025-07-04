@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,7 +19,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
@@ -31,66 +34,58 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         this.userRepo = userRepo;
     }
 
-    @Override //This method is to be called in all the requests unless its excluded in config
+    @Override
     protected void doFilterInternal(
             HttpServletRequest request,
-             @NonNull HttpServletResponse response,
-             @NonNull FilterChain filterChain
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
 
-        //Extract the authorization header from the request
         final String authHeader = request.getHeader("Authorization");
         final String token;
 
-        //If the header is empty or doesn't start with "Bearer" then skip the JWT validation
-        if(authHeader == null || !authHeader.startsWith("Bearer ")){
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        //Extract the actual token from the header
         token = authHeader.substring(7);
 
-        try{
-
-            //validate the token and extract the claims
+        try {
             Claims claims = jwtUtil.validateToken(token);
-            String email = claims.getSubject();
+            String subject = claims.getSubject(); // email or phone
             String role = claims.get("role", String.class);
 
-            //If Email and role are present in the token, then:
-            if(email != null && role != null){
-                //look up the user in the DynamoDB
-                User user =userRepo.findByEmail(email);
+            log.info("🔑 JWT token subject: {}", subject);
+            log.info("🔑 JWT token role: {}", role);
 
-                //User exists and Roles match.
-                if (user != null && user.getRole().equalsIgnoreCase(role)){
+            if (subject != null && role != null) {
+                // Lookup user by email or phone
+                Optional<User> user = subject.contains("@")
+                        ? userRepo.findByEmail(subject)
+                        : userRepo.findByPhone(subject);
 
-                    //Downstream access to logged-in User's identity
-//                    setting the security details for securityContextHolder
+                if (user.isPresent() && user.get().getRole().name().equalsIgnoreCase(role)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                            email,
+                            subject,
                             null,
                             List.of(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()))
                     );
                     SecurityContextHolder.getContext().setAuthentication(authentication);
-
-                    //Allow the Request to proceed
-                    filterChain.doFilter(request,response);
+                    filterChain.doFilter(request, response);
                     return;
+                } else {
+                    log.warn("❌ User not found or role mismatch for subject: {}", subject);
                 }
             }
 
-            //if email and role mismatch, then Forbidden
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.getWriter().write("Forbidden: Invalid token or role mismatch");
 
-        }
-        catch (JwtException e){
-            // If token is invalid, expired, malformed, etc., return 401 Unauthorized
+        } catch (JwtException e) {
+            log.error("❌ Invalid or expired JWT token: {}", e.getMessage());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("Unauthorized: Invalid or expired token");
         }
     }
-
 }
