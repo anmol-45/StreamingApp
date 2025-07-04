@@ -26,3 +26,4 @@ replay_pid*
 # Ignore RSA private and public keys
 src/main/resources/private_key.pem
 src/main/resources/public_key.pem
+src/main/resources/application.properties
