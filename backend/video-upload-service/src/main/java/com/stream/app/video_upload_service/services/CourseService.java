@@ -48,7 +48,7 @@ public class CourseService {
             log.debug("Saving course: {}", course);
             courseRepository.save(course);
 
-            return new ResponseEntity<>("course saved successfully at : " + course.getCourseID() + course.getCreatedAt() , HttpStatus.OK);
+            return new ResponseEntity<>("course saved successfully at : " + course.getCourseId() + course.getCreatedAt() , HttpStatus.OK);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -81,7 +81,7 @@ public class CourseService {
             lectureRepository.save(content);
 
             log.info("lecture saved successfully at URL: {}", url);
-            return new ResponseEntity<>("lecture saved successfully: \n contentId: " + content.getLectureID() + "\n url: "+ content.getContentURL() , HttpStatus.OK);
+            return new ResponseEntity<>("lecture saved successfully: \n contentId: " + content.getLectureId() + "\n url: "+ content.getContentURL() , HttpStatus.OK);
 
         } catch (IOException e) {
             logger.error("Video upload failed due to IOException: {}", e.getMessage());

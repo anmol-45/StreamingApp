@@ -8,11 +8,12 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "chapter")
 public class Chapter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer chapterID;
+    private Integer chapterId;
 
     private String chapterName;
 
@@ -24,11 +25,10 @@ public class Chapter {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subjectID", nullable = false)
+    @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
 
     @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lecture> contents;
 
-    // Getters & Setters
 }

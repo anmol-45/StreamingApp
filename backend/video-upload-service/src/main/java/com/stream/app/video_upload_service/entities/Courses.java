@@ -1,7 +1,7 @@
 package com.stream.app.video_upload_service.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,11 +9,12 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "courses")
 public class Courses {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer courseID;
+    private Integer courseId;
 
     private String courseName;
 
@@ -27,5 +28,4 @@ public class Courses {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Subject> subjects;
 
-    // Getters & Setters
 }
