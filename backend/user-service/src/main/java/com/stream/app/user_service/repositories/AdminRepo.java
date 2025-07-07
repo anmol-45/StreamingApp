@@ -11,5 +11,5 @@ public interface AdminRepo extends JpaRepository<Admin, String> {
     Admin getByEmail(String email);  // make sure this method exists in your Admin entity
 
     Optional<Admin> findByEmail(String input);
+}
 
-    Optional<Admin> findByPhone(String input);}

@@ -15,7 +15,7 @@ public class TokenContextService {
 
     public String getEmailFromToken() {
         String token = extractToken();
-        return jwtUtil.extractUserEmail(token);
+        return jwtUtil.extractUserName(token);
     }
 
     public String getRoleFromToken() {

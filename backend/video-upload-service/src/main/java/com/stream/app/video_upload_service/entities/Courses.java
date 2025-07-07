@@ -1,26 +1,31 @@
 package com.stream.app.video_upload_service.entities;
 
+import jakarta.persistence.*;
+import lombok.Data;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Courses {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long CourseId;
+    private Integer courseID;
 
-    private String name;
+    private String courseName;
 
+    @Lob
+    private String description;
 
-//    @OneToMany(mappedBy = "Courses")
-//    private List<Video> videoList = new ArrayList<>();
+    private BigDecimal price;
 
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Subject> subjects;
+
+    // Getters & Setters
 }

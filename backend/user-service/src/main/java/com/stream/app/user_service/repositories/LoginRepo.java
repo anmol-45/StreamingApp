@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface LoginRepo extends JpaRepository<Login, String> {
-    Optional<Login> findById(String Id);
+//    Optional<Login> findById(String Id);
 
     Login findByUserId(String id);
 

@@ -1,7 +1,7 @@
 package com.stream.app.user_service.controllers;
 
 import com.stream.app.user_service.dto.*;
-import com.stream.app.user_service.services.AuthService;
+import com.stream.app.user_service.services.authService.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

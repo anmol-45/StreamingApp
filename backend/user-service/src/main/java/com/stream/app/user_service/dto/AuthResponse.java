@@ -2,7 +2,6 @@ package com.stream.app.user_service.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor

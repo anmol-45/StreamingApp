@@ -1,6 +1,6 @@
-package com.example.apiGateway.filters;
+package com.stream.app.api_gateway.filters;
 
-import com.example.apiGateway.util.RsaKeyUtil;
+import com.stream.app.api_gateway.util.RsaKeyUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -62,6 +62,12 @@ public class JwtAuthenticationFilter implements GlobalFilter {
             String role = claims.get("role", String.class);
 
             if (email == null || role == null) {
+                exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+                return exchange.getResponse().setComplete();
+            }
+
+            // ✅ ADMIN-ONLY ACCESS to /api/v1/courses/**
+            if (path.startsWith("/api/v1/courses") && !role.equalsIgnoreCase("ADMIN")) {
                 exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
                 return exchange.getResponse().setComplete();
             }

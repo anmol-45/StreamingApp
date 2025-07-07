@@ -1,4 +1,4 @@
-package com.stream.app.user_service.services;
+package com.stream.app.user_service.services.authService;
 
 import com.stream.app.user_service.dto.*;
 import com.stream.app.user_service.dto.AuthResponse;
@@ -9,7 +9,6 @@ import com.stream.app.user_service.entities.User;
 import com.stream.app.user_service.repositories.AdminRepo;
 import com.stream.app.user_service.repositories.LoginRepo;
 import com.stream.app.user_service.repositories.UserRepo;
-import com.stream.app.user_service.services.utilServices.SmsService;
 import com.stream.app.user_service.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
@@ -99,7 +98,7 @@ public class AuthService {
         System.out.println("token: " + token);
 
         // 2. Extract email/phone from token
-        String userName = jwtUtil.extractUserEmail(token);
+        String userName = jwtUtil.extractUserName(token);
         if (userName == null) {
             logger.warn("❌ Unable to extract user from token");
             return false;

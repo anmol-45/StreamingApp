@@ -51,7 +51,7 @@ public class JwtUtil {
                 .getPayload();
     }
 
-    public String extractUserEmail(String token) {
+    public String extractUserName(String token) {
         return validateToken(token).getSubject();
     }
 

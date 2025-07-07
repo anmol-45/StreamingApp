@@ -1,4 +1,4 @@
-package com.stream.app.user_service.services.utilServices;
+package com.stream.app.user_service.services.authService;
 
 
 import com.twilio.rest.api.v2010.account.Message;

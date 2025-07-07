@@ -1,4 +1,4 @@
-package com.example.apiGateway.util;
+package com.stream.app.api_gateway.util;
 
 
 import java.io.BufferedReader;
