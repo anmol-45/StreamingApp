@@ -1,4 +1,4 @@
-package com.stream.app.user_service.services;
+package com.stream.app.user_service.services.authService;
 
 
 import com.stream.app.user_service.util.JwtUtil;
