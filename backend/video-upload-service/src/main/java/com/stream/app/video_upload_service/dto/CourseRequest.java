@@ -6,7 +6,8 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
-@Data@Builder
+@Data
+@Builder
 public class CourseRequest {
     private String courseName;
     private String description;

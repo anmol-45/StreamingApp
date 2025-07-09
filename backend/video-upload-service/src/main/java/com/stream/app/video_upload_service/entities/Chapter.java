@@ -1,13 +1,19 @@
 package com.stream.app.video_upload_service.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "chapter")
 public class Chapter {
 
@@ -29,6 +35,6 @@ public class Chapter {
     private Subject subject;
 
     @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Lecture> contents;
+    private List<Lecture> lecturesList;
 
 }

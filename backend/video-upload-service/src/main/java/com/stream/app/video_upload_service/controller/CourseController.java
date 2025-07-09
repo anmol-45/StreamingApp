@@ -1,6 +1,10 @@
 package com.stream.app.video_upload_service.controller;
 
+import com.stream.app.video_upload_service.dto.ChapterRequest;
 import com.stream.app.video_upload_service.dto.CourseRequest;
+import com.stream.app.video_upload_service.dto.LectureRequest;
+import com.stream.app.video_upload_service.dto.SubjectRequest;
+import com.stream.app.video_upload_service.entities.ContentType;
 import com.stream.app.video_upload_service.services.CourseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,19 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequiredArgsConstructor
-@Slf4j
 @RequestMapping("/api/v1/courses")
+@Slf4j
 public class CourseController {
 
     private final CourseService courseService;
+
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @PostMapping
     public ResponseEntity<?> createCourse(@RequestBody CourseRequest courseRequest) {
         log.info("Received course creation request: {}", courseRequest);
         try {
-            var savedCourse = courseService.createCourse(courseRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedCourse);
+            return courseService.createCourse(courseRequest);
         } catch (Exception e) {
             log.error("Error while creating course", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -29,18 +35,74 @@ public class CourseController {
         }
     }
 
-    @PostMapping("/{chapterId}/upload-video")
-    public ResponseEntity<?> uploadLecture(@PathVariable Integer chapterId,
-                                         @RequestParam("file") MultipartFile file,
-                                         @RequestParam("title") String title,
-                                         @RequestParam("description") String description) {
-        log.info("Received video upload request for chapterID {} with title {}", chapterId, title);
+    @PostMapping("/{courseId}/subjects")
+    public ResponseEntity<?> createSubject(@PathVariable Integer courseId, @RequestBody SubjectRequest subjectRequest) {
+        log.info("Received subject creation request for courseId {}: {}", courseId, subjectRequest);
+        subjectRequest.setCourseId(courseId);
         try {
-            return courseService.uploadLecture(chapterId, file, title, description);
+            return courseService.createSubject(subjectRequest);
         } catch (Exception e) {
-            log.error("Error while uploading video", e);
+            log.error("Error while creating subject", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to upload video");
+                    .body("Failed to create subject");
         }
     }
+
+    @PostMapping("/subjects/{subjectId}/chapters")
+    public ResponseEntity<?> createChapter(@PathVariable Integer subjectId, @RequestBody ChapterRequest chapterRequest) {
+        log.info("Received chapter creation request for subjectId {}: {}", subjectId, chapterRequest);
+        chapterRequest.setSubjectId(subjectId);
+        try {
+            return courseService.createChapter(chapterRequest);
+        } catch (Exception e) {
+            log.error("Error while creating chapter", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to create chapter");
+        }
+    }
+
+//    @PostMapping("/chapters/{chapterId}/lectures")
+//    public ResponseEntity<?> createLecture(@PathVariable Integer chapterId, @RequestBody LectureRequest lectureRequest) {
+//        log.info("Received lecture creation request for chapterId {}: {}", chapterId, lectureRequest);
+//        lectureRequest.setChapterId(chapterId);
+//        try {
+//            return courseService.createLecture(lectureRequest);
+//        } catch (Exception e) {
+//            log.error("Error while creating lecture", e);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Failed to create lecture");
+//        }
+//    }
+//
+//
+//    @PostMapping("/{chapterId}/upload-video")
+//    public ResponseEntity<?> uploadLecture(@PathVariable Integer chapterId,
+//                                         @RequestParam("file") MultipartFile file,
+//                                         @RequestParam("title") String title,
+//                                         @RequestParam("description") String description) {
+//        log.info("Received video upload request for chapterID {} with title {}", chapterId, title);
+//        try {
+//            return courseService.uploadLecture(chapterId, file, title, description);
+//        } catch (Exception e) {
+//            log.error("Error while uploading video", e);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Failed to upload video");
+//        }
+//    }
+        @PostMapping("/chapters/{chapterId}/lectures/upload")
+        public ResponseEntity<?> uploadAndSaveLecture(@PathVariable Integer chapterId,
+                                                      @RequestParam("file") MultipartFile file,
+                                                      @RequestParam("title") String title,
+                                                      @RequestParam("description") String description,
+                                                      @RequestParam("contentType") ContentType contentType) {
+            log.info("Received lecture upload + save request for chapterID {} with title {}", chapterId, title);
+            try {
+                return courseService.uploadAndSaveLecture(chapterId, file, title, description, contentType);
+            } catch (Exception e) {
+                log.error("Error while uploading and saving lecture", e);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body("Failed to upload and save lecture");
+            }
+        }
+
 }
