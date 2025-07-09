@@ -1,12 +1,18 @@
 package com.stream.app.video_upload_service.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "lecture")
 public class Lecture {
 
@@ -16,10 +22,10 @@ public class Lecture {
 
     private Integer serialNumber;
 
-    private String title;
+    private String lectureName;
 
     @Lob
-    private String content;
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private ContentType contentType;

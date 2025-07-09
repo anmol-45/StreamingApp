@@ -10,6 +10,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "courses")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Courses {
 
     @Id

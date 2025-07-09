@@ -2,6 +2,7 @@ package com.stream.app.user_service.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.security.PrivateKey;
@@ -16,10 +17,6 @@ public class JwtUtil {
     private final PrivateKey privateKey;
     private final PublicKey publicKey;
 
-//    public JwtUtil() throws Exception {
-//        this.privateKey = RsaKeyUtil.getPrivateKey("src/main/resources/private_key.pem");
-//        this.publicKey = RsaKeyUtil.getPublicKey("src/main/resources/public_key.pem");
-//    }
     public JwtUtil() throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();
 
