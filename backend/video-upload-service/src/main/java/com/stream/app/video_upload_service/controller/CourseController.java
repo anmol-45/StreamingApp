@@ -32,10 +32,10 @@ public class CourseController {
         }
     }
 
-    @PostMapping("/{courseId}/subjects")
-    public ResponseEntity<?> createSubject(@PathVariable Integer courseId, @RequestBody SubjectRequest subjectRequest) {
-        log.info("Received subject creation request for courseId {}: {}", courseId, subjectRequest);
-        subjectRequest.setCourseId(courseId);
+    @PostMapping("/{id}/subjects")
+    public ResponseEntity<?> createSubject(@PathVariable("id") Integer id, @RequestBody SubjectRequest subjectRequest) {
+        log.info("Received subject creation request for courseId {}: {}", id, subjectRequest);
+        subjectRequest.setCourseId(id);
         try {
             return courseService.createSubject(subjectRequest);
         } catch (Exception e) {

@@ -320,8 +320,14 @@ public class AuthService {
                 .role(admin.map(value -> Role.valueOf(value.getRole())).orElse(Role.STUDENT))
                 .isPremium(false);
 
-        if (isEmail) userBuilder.email(id);
-        else userBuilder.phone(id);
+        if(admin.isPresent()){
+            userBuilder.email(admin.get().getEmail());
+            userBuilder.phone(admin.get().getPhone());
+        }
+        else{
+            if (isEmail) userBuilder.email(id);
+            else userBuilder.phone(id);
+        }
 
         User user = userBuilder.build();
         userRepo.save(user); // Optional: if you want to persist user
@@ -351,6 +357,9 @@ public class AuthService {
         Login login = loginRepo.findById(loginId)
                 .orElseThrow(() -> new IllegalArgumentException("No login session for: " + loginId));
 
+        //give proper response code for this
+        if(!login.isLoggedIn())
+            throw new RuntimeException("user is not logged in");
         login.setLoggedIn(true);
         login.setLoggedInAt(LocalDateTime.now());
         login.setDevice(device);
