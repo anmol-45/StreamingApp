@@ -5,32 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9214294e-a94f-4cc9-816d-77f510104b4b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/filters/JwtAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/util/RsaKeyUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/resources/public_key.pem" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/api-gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api-gateway/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/util/JwtAuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/util/JwtAuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/authService/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/authService/AuthService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/video-upload-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/VideoUploadServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/VideoUploadServiceApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/controller/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/ChapterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/ChapterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/ChapterResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/ChapterResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/LectureRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/LectureRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/LectureResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/LectureResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/SubjectRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/SubjectRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/SubjectResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/SubjectResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/VideoDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Chapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Chapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Courses.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Courses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Lecture.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Lecture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Subject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,39 +39,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ApiGatewayApplication.executor": "Run",
-    "Application.DiscoveryServiceApplication.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.Upload-Video.executor": "Run",
-    "Application.User-Service.executor": "Run",
-    "Application.UserServiceApplication.executor": "Run",
-    "Application.VideoUploadServiceApplication.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.ApiGatewayApplication.executor": "Run",
-    "Spring Boot.DiscoveryServiceApplication.executor": "Run",
-    "Spring Boot.UserServiceApplication.executor": "Run",
-    "Spring Boot.VideoUploadServiceApplication.executor": "Run",
-    "git-widget-placeholder": "feature/video-upload-service",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/AnmolKumar/Desktop/StreamingApp/backend/video-upload-service/src/main/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Upload-Video.executor&quot;: &quot;Run&quot;,
+    &quot;Application.User-Service.executor&quot;: &quot;Run&quot;,
+    &quot;Application.UserServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VideoUploadServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;Database connection parameters found&quot;,
+    &quot;Notification.DoNotAsk-DatabaseConfigFileWatcher.found&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.DiscoveryServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.VideoUploadServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/video-upload-service&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/AnmolKumar/Desktop/StreamingApp/backend/video-upload-service/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\AnmolKumar\Desktop\StreamingApp\backend\video-upload-service\src\main\resources" />
@@ -104,43 +86,6 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.stream.app.video_upload_service.dto" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="Upload-Video" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-17" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <envs>
-        <env name="SQL_PASSWORD" value="AnmolRS143@" />
-        <env name="SQL_ROOT" value="root" />
-        <env name="CLOUDINARY_NAME" value="drslaav7r" />
-        <env name="CLOUDINARY_APIKEY" value="757613851435727" />
-        <env name="CLOUDINARY_APISECRET" value="ObV9WSTFV6RIi1ayCjoypeqNtz0" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.stream.app.video_upload_service.VideoUploadServiceApplication" />
-      <module name="video-upload-service" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="User-Service" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-17" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <envs>
-        <env name="GOOGLE_CLIENT_ID" value="82776662502-0a61fe8ksrignjmqrsth29phce40a8r0.apps.googleusercontent.com" />
-        <env name="GOOGLE_CLIENT_SECRET" value="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" />
-        <env name="SQL_PASSWORD" value="AnmolRS143@" />
-        <env name="SQL_ROOT" value="root" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.stream.app.user_service.UserServiceApplication" />
-      <module name="user-service" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Application.User-Service" />
-      <item itemvalue="Application.Upload-Video" />
-    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -162,6 +107,9 @@
       <workItem from="1752083106742" duration="177000" />
       <workItem from="1752083296656" duration="6912000" />
       <workItem from="1752136856136" duration="4016000" />
+      <workItem from="1752213528604" duration="215000" />
+      <workItem from="1752216242826" duration="19000" />
+      <workItem from="1752245353945" duration="6384000" />
     </task>
     <servers />
   </component>

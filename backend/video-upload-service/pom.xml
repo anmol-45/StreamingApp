@@ -69,4 +69,23 @@
 		</dependency>
 
 	</dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version> <!-- ✅ Specify a version -->
+				<configuration>
+					<compilerArgs>
+						<arg>-parameters</arg>
+					</compilerArgs>
+					<source>17</source> <!-- ✅ Match your Java version -->
+					<target>17</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
