@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@Entity
 @Table(name = "chapter")
 public class Chapter {
 
