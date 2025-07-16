@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CourseResponse {
     private Integer CourseId;
-    private String message;
 }

@@ -2,6 +2,7 @@ package com.stream.app.user_service.services.authService.userService;
 
 import com.stream.app.user_service.dto.UserInfo;
 import com.stream.app.user_service.entities.User;
+import com.stream.app.user_service.payload.CustomResponseMessage;
 import com.stream.app.user_service.repositories.UserRepo;
 import com.stream.app.user_service.util.JwtUtil;
 
@@ -23,13 +24,17 @@ public class UserService {
     private final UserRepo userRepo;
     private final JwtUtil jwtUtil;
 
-    public ResponseEntity<?> updateDetails(UserInfo info, HttpServletRequest request) {
-
+    public ResponseEntity<CustomResponseMessage<?>> updateDetails(UserInfo info, HttpServletRequest request) {
         String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Bearer ")) {
             logger.warn("Missing or invalid Authorization header: {}", header);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Authorization header");
-        }
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("Invalid Authorization header")
+                            .data(null)
+                            .build(),
+                    HttpStatus.UNAUTHORIZED
+            );        }
 
         String token = header.substring(7);
         logger.info("Extracted token: {}", token);
@@ -37,14 +42,27 @@ public class UserService {
         String userName = jwtUtil.extractUserName(token);
         if (userName == null) {
             logger.warn("Failed to extract username from token");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token payload");
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("Invalid token payload")
+                            .data(null)
+                            .build(),
+                    HttpStatus.BAD_REQUEST
+            );
         }
+
         boolean isEmail = userName.contains("@");
         Optional<User> optionalUser = isEmail ? userRepo.findByEmail(userName) : userRepo.findByPhone(userName);
 
         if (optionalUser.isEmpty()) {
             logger.error("User not found for identifier: {}", userName);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("User not found")
+                            .data(null)
+                            .build(),
+                    HttpStatus.NOT_FOUND
+            );
         }
 
         User user = optionalUser.get();
@@ -63,10 +81,22 @@ public class UserService {
         try {
             userRepo.save(user);
             logger.info("User details updated successfully for user: {}", userName);
-            return ResponseEntity.ok("User details updated successfully");
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("User details updated successfully")
+                            .data(null)
+                            .build(),
+                    HttpStatus.OK
+            );
         } catch (Exception ex) {
             logger.error("Error saving user details: {}", ex.getMessage(), ex);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update user");
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("Failed to update user details")
+                            .data(null)
+                            .build(),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 }

@@ -7,7 +7,5 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class OtpResponseDto {
-
-    private String message;
     private String loginId;
 }

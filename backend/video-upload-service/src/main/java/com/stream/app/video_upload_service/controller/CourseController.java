@@ -2,9 +2,9 @@ package com.stream.app.video_upload_service.controller;
 
 import com.stream.app.video_upload_service.dto.ChapterRequest;
 import com.stream.app.video_upload_service.dto.CourseRequest;
-import com.stream.app.video_upload_service.dto.LectureRequest;
 import com.stream.app.video_upload_service.dto.SubjectRequest;
 import com.stream.app.video_upload_service.entities.ContentType;
+import com.stream.app.video_upload_service.payload.CustomResponseMessage;
 import com.stream.app.video_upload_service.services.CourseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,40 +21,49 @@ public class CourseController {
     private final CourseService courseService;
 
     @PostMapping
-    public ResponseEntity<?> createCourse(@RequestBody CourseRequest courseRequest) {
+    public ResponseEntity<CustomResponseMessage<?>> createCourse(@RequestBody CourseRequest courseRequest) {
         log.info("Received course creation request: {}", courseRequest);
         try {
             return courseService.createCourse(courseRequest);
         } catch (Exception e) {
             log.error("Error while creating course", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to create course");
+            return new ResponseEntity<>(CustomResponseMessage.builder()
+                    .message("Failed to create course with error: "+ e.getMessage())
+                    .data(null)
+                    .build(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PostMapping("/{id}/subjects")
-    public ResponseEntity<?> createSubject(@PathVariable("id") Integer id, @RequestBody SubjectRequest subjectRequest) {
-        log.info("Received subject creation request for courseId {}: {}", id, subjectRequest);
-        subjectRequest.setCourseId(id);
+    @PostMapping("/{courseId}/subjects")
+    public ResponseEntity<CustomResponseMessage<?>>createSubject(@PathVariable Integer courseId, @RequestBody SubjectRequest subjectRequest) {
+        log.info("Received subject creation request for courseId {}: {}", courseId, subjectRequest);
+        subjectRequest.setCourseId(courseId);
         try {
             return courseService.createSubject(subjectRequest);
         } catch (Exception e) {
             log.error("Error while creating subject", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to create subject");
+            return new ResponseEntity<>(CustomResponseMessage.builder()
+                    .message("Failed to create subject with error: "+ e.getMessage())
+                    .data(null)
+                    .build(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/subjects/{subjectId}/chapters")
-    public ResponseEntity<?> createChapter(@PathVariable Integer subjectId, @RequestBody ChapterRequest chapterRequest) {
+    public ResponseEntity<CustomResponseMessage<?>> createChapter(@PathVariable Integer subjectId, @RequestBody ChapterRequest chapterRequest) {
         log.info("Received chapter creation request for subjectId {}: {}", subjectId, chapterRequest);
         chapterRequest.setSubjectId(subjectId);
         try {
             return courseService.createChapter(chapterRequest);
         } catch (Exception e) {
             log.error("Error while creating chapter", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to create chapter");
+            return new ResponseEntity<>(CustomResponseMessage.builder()
+                    .message("Failed to create chapter with error: "+ e.getMessage())
+                    .data(null)
+                    .build(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -87,18 +96,22 @@ public class CourseController {
 //        }
 //    }
         @PostMapping("/chapters/{chapterId}/lectures/upload")
-        public ResponseEntity<?> uploadAndSaveLecture(@PathVariable Integer chapterId,
+        public ResponseEntity<CustomResponseMessage<?>> uploadAndSaveLecture(@PathVariable Integer chapterId,
+                                                      @RequestParam("serialNo")Integer serialNo,
                                                       @RequestParam("file") MultipartFile file,
                                                       @RequestParam("title") String title,
-                                                      @RequestParam("description") String description,
+                                                      @RequestParam("content") String content,
                                                       @RequestParam("contentType") ContentType contentType) {
             log.info("Received lecture upload + save request for chapterID {} with title {}", chapterId, title);
             try {
-                return courseService.uploadAndSaveLecture(chapterId, file, title, description, contentType);
+                return courseService.uploadAndSaveLecture(chapterId,serialNo, file, title, content, contentType);
             } catch (Exception e) {
                 log.error("Error while uploading and saving lecture", e);
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body("Failed to upload and save lecture");
+                return new ResponseEntity<>(CustomResponseMessage.builder()
+                        .message("Failed to upload and save lecture with error: "+ e.getMessage())
+                        .data(null)
+                        .build(),
+                        HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 

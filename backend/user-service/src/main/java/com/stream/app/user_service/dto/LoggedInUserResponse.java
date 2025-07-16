@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Builder
 public class LoggedInUserResponse {
     private String loginId;
-    private String message;
     private String existingDevice;
     private String loggedInIp;
     private LocalDateTime existingLoginTime;

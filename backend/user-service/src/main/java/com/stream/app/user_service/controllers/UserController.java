@@ -1,8 +1,7 @@
 package com.stream.app.user_service.controllers;
 
-
 import com.stream.app.user_service.dto.UserInfo;
-import com.stream.app.user_service.repositories.UserRepo;
+import com.stream.app.user_service.payload.CustomResponseMessage;
 import com.stream.app.user_service.services.authService.userService.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,7 @@ public class UserController {
 
     private final UserService userService;
     @PostMapping("/personal-details")
-    public ResponseEntity<?> updateDetails(@RequestBody UserInfo info, HttpServletRequest request){
+    public ResponseEntity<CustomResponseMessage<?>> updateDetails(@RequestBody UserInfo info, HttpServletRequest request){
         return userService.updateDetails(info , request);
     }
 }

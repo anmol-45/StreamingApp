@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SubjectResponse {
     private Integer SubjectId;
-    private String message;
 }
