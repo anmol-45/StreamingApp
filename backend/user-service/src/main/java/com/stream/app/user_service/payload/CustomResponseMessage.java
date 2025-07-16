@@ -1,16 +1,16 @@
-package com.stream.app.video_upload_service.dto;
+package com.stream.app.user_service.payload;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ChapterResponse {
-    private Integer chapterId;
-    private Integer serialNo;
+public class CustomResponseMessage<T> {
+    private String message;
+    private T data;
 }

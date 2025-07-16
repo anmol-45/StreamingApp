@@ -1,6 +1,7 @@
 package com.stream.app.user_service.controllers;
 
 import com.stream.app.user_service.dto.*;
+import com.stream.app.user_service.payload.CustomResponseMessage;
 import com.stream.app.user_service.services.authService.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +37,11 @@ public class AuthController {
      * Send OTP to email or phone
      */
     @PostMapping("/send-otp")
-    public ResponseEntity<OtpResponseDto> sendOtp(@RequestBody OtpRequestDto otpRequest) {
+    public ResponseEntity<CustomResponseMessage<?>> sendOtp(@RequestBody OtpRequestDto otpRequest , HttpServletRequest request) {
 
+        otpRequest.setIp(request.getRemoteAddr());
+        otpRequest.setDevice(request.getHeader("User-Agent"));
+        //completed proper response code
         return authService.generateAndSendOtp(otpRequest);
     }
 
@@ -45,21 +49,25 @@ public class AuthController {
      * Verify OTP for login
      */
     @PostMapping("/verify-otp")
-    public ResponseEntity<?> verifyOtp(@RequestBody OtpVerificationRequest otpRequest) {
+    public ResponseEntity<CustomResponseMessage<?>> verifyOtp(@RequestBody OtpVerificationRequest otpRequest) {
 
         try {
-            ResponseEntity<?> response = authService.verifyOtp(otpRequest);
-            return ResponseEntity.ok(response);
+            return authService.verifyOtp(otpRequest);
+
         } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            return new ResponseEntity<>(CustomResponseMessage.builder()
+                    .message(e.getMessage()).build(), HttpStatus.CONFLICT);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return new ResponseEntity<>(CustomResponseMessage.builder()
+                    .message(e.getMessage()).build(), HttpStatus.UNAUTHORIZED);
         }
     }
 
     @PostMapping("/force-login")
-    public ResponseEntity<AuthResponse> forceLogin(@RequestBody ForceLoginRequest forceLoginDto) {
-        return ResponseEntity.ok(authService.forceLogin(forceLoginDto));
+    public ResponseEntity<CustomResponseMessage<?>> forceLogin(@RequestBody ForceLoginRequest forceLoginDto, HttpServletRequest request) {
+        forceLoginDto.setIp(request.getRemoteAddr());
+        forceLoginDto.setDevice(request.getHeader("User-Agent"));
+        return authService.forceLogin(forceLoginDto);
     }
 
 
@@ -67,13 +75,15 @@ public class AuthController {
      * Logout
      */
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request) {
+    public ResponseEntity<CustomResponseMessage<?>> logout(HttpServletRequest request) {
 
 
-        boolean success = authService.logout(request);
-        return success
-                ? ResponseEntity.ok("Logged out successfully")
-                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        return authService.logout(request);
+    }
+
+    @PostMapping("/update-token")
+    public ResponseEntity<CustomResponseMessage<?>> updateToken(@RequestBody String refreshToken){
+        return authService.updateToken(refreshToken);
     }
 
     //google auth controller
@@ -139,8 +149,5 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/update-token")
-    public ResponseEntity<?> updateToken(@RequestBody String refreshToken){
-        return authService.updateToken(refreshToken);
-    }
+
 }

@@ -4,14 +4,14 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.stream.app.video_upload_service.dto.*;
 import com.stream.app.video_upload_service.entities.*;
+import com.stream.app.video_upload_service.payload.CustomResponseMessage;
 import com.stream.app.video_upload_service.repositories.LectureRepository;
 import com.stream.app.video_upload_service.repositories.ChapterRepository;
 import com.stream.app.video_upload_service.repositories.CourseRepository;
 import com.stream.app.video_upload_service.repositories.SubjectRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -37,7 +38,7 @@ public class CourseService {
     private final SubjectRepository subjectRepository;
 
     @Transactional
-    public ResponseEntity<?> createCourse(CourseRequest request) {
+    public ResponseEntity<CustomResponseMessage<?>> createCourse(CourseRequest request) {
         Courses course = Courses.builder()
                 .courseName(request.getCourseName())
                 .description(request.getDescription())
@@ -49,16 +50,32 @@ public class CourseService {
         Courses savedCourse = courseRepository.save(course);
         log.info("Course saved with ID: {}", savedCourse.getCourseId());
 
-        return ResponseEntity.ok(CourseResponse.builder()
-                .CourseId(savedCourse.getCourseId())
-                .message("Course created successfully at: " + savedCourse.getCreatedAt())
-                .build());
+        return new ResponseEntity<>(
+                CustomResponseMessage.builder()
+                        .message("Course created successfully at: " + savedCourse.getCreatedAt())
+                        .data(CourseResponse.builder()
+                                .CourseId(savedCourse.getCourseId())
+                        )
+                        .build()
+                , HttpStatus.OK);
     }
 
     @Transactional
-    public ResponseEntity<?> createSubject(SubjectRequest request) {
-        Courses course = courseRepository.findById(request.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + request.getCourseId()));
+    public ResponseEntity<CustomResponseMessage<?>>  createSubject(SubjectRequest request) {
+        Optional<Courses> optionalCourse = courseRepository.findById(request.getCourseId());
+
+        if (optionalCourse.isEmpty()) {
+            log.warn("❌ Course not found with ID: {}", request.getCourseId());
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("Course not found with ID: " + request.getCourseId())
+                            .data(null)
+                            .build(),
+                    HttpStatus.NOT_FOUND
+            );
+        }
+
+        Courses course = optionalCourse.get();
 
         Subject subject = Subject.builder()
                 .subjectName(request.getSubjectName())
@@ -71,16 +88,33 @@ public class CourseService {
         Subject savedSubject = subjectRepository.save(subject);
         log.info("Subject saved with ID: {}", savedSubject.getSubjectId());
 
-        return ResponseEntity.ok(SubjectResponse.builder()
-                .SubjectId(savedSubject.getSubjectId())
-                .message("Subject created successfully at: " + savedSubject.getCreatedAt())
-                .build());
+        return new ResponseEntity<>(
+                CustomResponseMessage.builder()
+                        .message("Subject created successfully at: " + savedSubject.getCreatedAt())
+                        .data(SubjectResponse.builder()
+                                .SubjectId(savedSubject.getSubjectId())
+                                .build()
+                        )
+                        .build()
+                , HttpStatus.OK);
     }
 
     @Transactional
-    public ResponseEntity<?> createChapter(ChapterRequest request) {
-        Subject subject = subjectRepository.findById(request.getSubjectId())
-                .orElseThrow(() -> new RuntimeException("Subject not found with ID: " + request.getSubjectId()));
+    public ResponseEntity<CustomResponseMessage<?>>  createChapter(ChapterRequest request) {
+        Optional<Subject> optionalSubject = subjectRepository.findById(request.getSubjectId());
+
+        if (optionalSubject.isEmpty()) {
+            log.warn("❌ Subject not found with ID: {}", request.getSubjectId());
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("Course not found with ID: " + request.getSubjectId())
+                            .data(null)
+                            .build(),
+                    HttpStatus.NOT_FOUND
+            );
+        }
+
+        Subject subject = optionalSubject.get();
 
         Integer maxSerialNumber = chapterRepository.findMaxSerialNumberBySubjectId(subject.getSubjectId());
         int nextSerialNumber = (maxSerialNumber != null ? maxSerialNumber : 0) + 1;
@@ -97,11 +131,16 @@ public class CourseService {
         Chapter savedChapter = chapterRepository.save(chapter);
         log.info("Chapter saved with ID: {}", savedChapter.getChapterId());
 
-        return ResponseEntity.ok(ChapterResponse.builder()
-                .chapterId(savedChapter.getChapterId())
-                .chapterNo(savedChapter.getSerialNumber())
-                .message("Chapter created successfully at: " + savedChapter.getCreatedAt())
-                .build());
+        return new ResponseEntity<>(
+                CustomResponseMessage.builder()
+                        .message("Chapter created successfully at: " + savedChapter.getCreatedAt())
+                        .data(ChapterResponse.builder()
+                                .chapterId(savedChapter.getChapterId())
+                                .serialNo(savedChapter.getSerialNumber())
+                                .build()
+                        )
+                        .build()
+                , HttpStatus.OK);
     }
 
 //    public ResponseEntity<?> createLecture(LectureRequest request) {
@@ -169,53 +208,76 @@ public class CourseService {
 //            return null;
 //        }
 //    }
-@Transactional
-public ResponseEntity<?> uploadAndSaveLecture(Integer chapterId,
-                                              MultipartFile file,
-                                              String title,
-                                              String description,
-                                              ContentType contentType) {
-    log.info("Starting upload for lecture: {}", title);
+    @Transactional
+    public ResponseEntity<CustomResponseMessage<?>>  uploadAndSaveLecture(Integer chapterId,
+                                                  Integer serialNo,
+                                                  MultipartFile file,
+                                                  String title,
+                                                  String description,
+                                                  ContentType contentType) {
+        log.info("Starting upload for lecture: {}", title);
 
-    try {
-        Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
-                "resource_type", contentType == ContentType.VIDEO ? "video" : "auto"
-        ));
-        String url = (String) uploadResult.get("secure_url");
-        log.info("{} uploaded successfully. URL: {}", contentType, url);
+        try {
+            Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
+                    "resource_type", contentType == ContentType.VIDEO ? "video" : "auto"
+            ));
+            String url = (String) uploadResult.get("secure_url");
+            log.info("{} uploaded successfully. URL: {}", contentType, url);
 
-        Chapter chapter = chapterRepository.findById(chapterId)
-                .orElseThrow(() -> new RuntimeException("Chapter not found with ID: " + chapterId));
+            Optional<Chapter> optionalChapter = chapterRepository.findById(chapterId);
+            if (optionalChapter.isEmpty()) {
+                log.warn("❌ Chapter not found with ID: {}", chapterId);
+                return new ResponseEntity<>(
+                        CustomResponseMessage.builder()
+                                .message("Chapter not found with ID: " + chapterId)
+                                .data(null)
+                                .build(),
+                        HttpStatus.NOT_FOUND
+                );
+            }
 
-        Integer maxSerialNumber = lectureRepository.findMaxSerialNumberByChapterId(chapterId);
-        int nextSerialNumber = (maxSerialNumber != null ? maxSerialNumber : 0) + 1;
+            Chapter chapter = optionalChapter.get();
 
-        Lecture lecture = Lecture.builder()
-                .lectureName(title)
-                .description(description)
-                .contentType(contentType)
-                .contentURL(url)
-                .serialNumber(nextSerialNumber)
-                .chapter(chapter)
-                .createdAt(LocalDateTime.now())
-                .build();
+            Integer maxSerialNumber = lectureRepository.findMaxSerialNumberByChapterId(chapterId);
+            int nextSerialNumber = (maxSerialNumber != null ? maxSerialNumber : 0) + 1;
 
-        lectureRepository.save(lecture);
-        log.info("Lecture saved successfully with ID: {}", lecture.getLectureId());
+            Lecture lecture = Lecture.builder()
+                    .lectureName(title)
+                    .description(description)
+                    .contentType(contentType)
+                    .contentURL(url)
+                    .serialNumber(serialNo != null ? serialNo: nextSerialNumber)
+                    .chapter(chapter)
+                    .createdAt(LocalDateTime.now())
+                    .build();
 
-        return ResponseEntity.ok(
-                LectureResponse.builder()
-                        .lectureId(lecture.getLectureId())
-                        .lectureNo(lecture.getSerialNumber())
-                        .message("Lecture created successfully with URL: " + url)
-                        .build()
-        );
+            lectureRepository.save(lecture);
+            log.info("Lecture saved successfully with ID: {}", lecture.getLectureId());
 
-    } catch (IOException e) {
-        log.error("File upload failed: {}", e.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Failed to upload file due to IOException");
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("Lecture created successfully")
+                            .data(
+                                    LectureResponse.builder()
+                                            .lectureId(lecture.getLectureId())
+                                            .lectureNo(lecture.getSerialNumber())
+                                            .urls(List.of(lecture.getContentURL()))
+                                            .build()
+                            )
+                            .build(),
+                    HttpStatus.CREATED
+            );
+
+        } catch (IOException e) {
+            log.error("File upload failed: {}", e.getMessage());
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("Failed to upload file")
+                            .data(null)
+                            .build(),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
     }
-}
 
 }
