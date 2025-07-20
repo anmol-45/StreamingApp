@@ -5,21 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9214294e-a94f-4cc9-816d-77f510104b4b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/api-gateway/src/main/java/com/stream/app/api_gateway/config/GatewayCorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/payload/CustomResponseMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/InstructorRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Instructor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/repositories/InstructorRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api-gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api-gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api-gateway/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/controllers/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/dto/LoggedInUserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/dto/LoggedInUserResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/dto/OtpResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/dto/OtpResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/dto/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/dto/UserInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/authService/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/authService/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/authService/userService/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/authService/userService/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/controller/CourseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/ChapterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/ChapterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Courses.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Courses.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/services/CourseService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +79,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.annotationProcessors",
+    "settings.editor.selected.configurable": "editor.preferences.completion",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -126,7 +121,8 @@
       <workItem from="1752493390968" duration="155000" />
       <workItem from="1752493558400" duration="426000" />
       <workItem from="1752588944752" duration="9793000" />
-      <workItem from="1752662043055" duration="5444000" />
+      <workItem from="1752662043055" duration="9849000" />
+      <workItem from="1752860379121" duration="13445000" />
     </task>
     <servers />
   </component>

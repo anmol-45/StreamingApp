@@ -5,13 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class ChapterRequest {
     private Integer subjectId;
+    private Integer chapterNo;
     private String chapterName;
     private String chapterDescription;
 }

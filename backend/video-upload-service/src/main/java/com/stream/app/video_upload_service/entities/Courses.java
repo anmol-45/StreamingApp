@@ -21,14 +21,34 @@ public class Courses {
 
     private String courseName;
 
+    private String subtitle;
+
     @Lob
     private String description;
 
-    private BigDecimal price;
+    private BigDecimal originalPrice;
+
+    private Integer discountPercent;
+
+    private String currency;
+
+    private String imageUrl;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @ElementCollection
+    private List<String> tags;
+
+    @ElementCollection
+    private List<String> extras;
+
+    @ElementCollection
+    private List<String> bullets;
+
+    @ManyToOne
+    @JoinColumn(name = "instructor_id")
+    private Instructor instructor;
+
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Subject> subjects;
-
 }

@@ -20,11 +20,13 @@ public class CourseController {
 
     private final CourseService courseService;
 
-    @PostMapping
-    public ResponseEntity<CustomResponseMessage<?>> createCourse(@RequestBody CourseRequest courseRequest) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<CustomResponseMessage<?>> createCourse(
+            @RequestPart("course") CourseRequest courseRequest,
+            @RequestPart("image") MultipartFile imageFile) {
         log.info("Received course creation request: {}", courseRequest);
         try {
-            return courseService.createCourse(courseRequest);
+            return courseService.createCourse(courseRequest , imageFile);
         } catch (Exception e) {
             log.error("Error while creating course", e);
             return new ResponseEntity<>(CustomResponseMessage.builder()
@@ -95,24 +97,24 @@ public class CourseController {
 //                    .body("Failed to upload video");
 //        }
 //    }
-        @PostMapping("/chapters/{chapterId}/lectures/upload")
-        public ResponseEntity<CustomResponseMessage<?>> uploadAndSaveLecture(@PathVariable Integer chapterId,
-                                                      @RequestParam("serialNo")Integer serialNo,
-                                                      @RequestParam("file") MultipartFile file,
-                                                      @RequestParam("title") String title,
-                                                      @RequestParam("content") String content,
-                                                      @RequestParam("contentType") ContentType contentType) {
-            log.info("Received lecture upload + save request for chapterID {} with title {}", chapterId, title);
-            try {
-                return courseService.uploadAndSaveLecture(chapterId,serialNo, file, title, content, contentType);
-            } catch (Exception e) {
-                log.error("Error while uploading and saving lecture", e);
-                return new ResponseEntity<>(CustomResponseMessage.builder()
-                        .message("Failed to upload and save lecture with error: "+ e.getMessage())
-                        .data(null)
-                        .build(),
-                        HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
 
+    @PostMapping("/chapters/{chapterId}/lectures/upload")
+    public ResponseEntity<CustomResponseMessage<?>> uploadAndSaveLecture(@PathVariable Integer chapterId,
+                                                  @RequestParam("serialNo")Integer serialNo,
+                                                  @RequestParam("file") MultipartFile file,
+                                                  @RequestParam("title") String title,
+                                                  @RequestParam("content") String content,
+                                                  @RequestParam("contentType") ContentType contentType) {
+        log.info("Received lecture upload + save request for chapterID {} with title {}", chapterId, title);
+        try {
+            return courseService.uploadAndSaveLecture(chapterId,serialNo, file, title, content, contentType);
+        } catch (Exception e) {
+            log.error("Error while uploading and saving lecture", e);
+            return new ResponseEntity<>(CustomResponseMessage.builder()
+                    .message("Failed to upload and save lecture with error: "+ e.getMessage())
+                    .data(null)
+                    .build(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

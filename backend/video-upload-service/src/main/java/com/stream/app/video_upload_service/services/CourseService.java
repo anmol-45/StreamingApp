@@ -5,10 +5,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.stream.app.video_upload_service.dto.*;
 import com.stream.app.video_upload_service.entities.*;
 import com.stream.app.video_upload_service.payload.CustomResponseMessage;
-import com.stream.app.video_upload_service.repositories.LectureRepository;
-import com.stream.app.video_upload_service.repositories.ChapterRepository;
-import com.stream.app.video_upload_service.repositories.CourseRepository;
-import com.stream.app.video_upload_service.repositories.SubjectRepository;
+import com.stream.app.video_upload_service.repositories.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -36,29 +32,131 @@ public class CourseService {
     private final LectureRepository lectureRepository;
     private final Cloudinary cloudinary;
     private final SubjectRepository subjectRepository;
+    private final InstructorRepository instructorRepository;
+
+
 
     @Transactional
-    public ResponseEntity<CustomResponseMessage<?>> createCourse(CourseRequest request) {
-        Courses course = Courses.builder()
-                .courseName(request.getCourseName())
-                .description(request.getDescription())
-                .price(request.getPrice())
+    public ResponseEntity<CustomResponseMessage<?>> createCourse(CourseRequest request, MultipartFile image) {
+        try {
+            // Upload image
+            String url = uploadTitleImage(image);
+
+            // Create instructor
+            Instructor instructor = createInstructor(request.getInstructor());
+            if (instructor == null) {
+                log.warn("❌ Instructor creation failed.");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(CustomResponseMessage.builder()
+                                .message("Instructor creation failed")
+                                .data(null)
+                                .build());
+            }
+
+            // Create course entity
+            Courses course = Courses.builder()
+                    .courseName(request.getCourseName())
+                    .subtitle(request.getSubTitle())
+                    .description(request.getDescription())
+                    .originalPrice(request.getOriginalPrice())
+                    .discountPercent(request.getDiscountPercent())
+                    .currency(request.getCurrency())
+                    .createdAt(LocalDateTime.now())
+                    .tags(request.getTags())
+                    .extras(request.getExtras())
+                    .imageUrl(url)
+                    .bullets(request.getOverviewBullets())
+                    .instructor(instructor)
+                    .build();
+
+            log.debug("📦 Saving course: {}", course);
+            Courses savedCourse = courseRepository.save(course);
+            log.info("✅ Course saved with ID: {}", savedCourse.getCourseId());
+
+            return ResponseEntity.ok(
+                    CustomResponseMessage.builder()
+                            .message("Course created successfully at: " + savedCourse.getCreatedAt())
+                            .data(CourseResponse.builder()
+                                    .courseId(savedCourse.getCourseId())
+                                    .courseName(savedCourse.getCourseName())
+                                    .courseSubTitle(savedCourse.getSubtitle())
+                                    .description(savedCourse.getDescription())
+                                    .price(savedCourse.getDiscountPercent())
+                                    .imageUrl(savedCourse.getImageUrl())
+                                    .instructorResponse(instructor)
+                                    .bullets(savedCourse.getBullets())
+                                    .tags(savedCourse.getTags())  // ✅ fixed
+                                    .extras(savedCourse.getExtras())
+                                    .createdAt(savedCourse.getCreatedAt())
+                                    .build())
+                            .build()
+            );
+        } catch (IllegalArgumentException e) {
+            log.warn("🚫 Invalid input: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(
+                    CustomResponseMessage.builder()
+                            .message(e.getMessage())
+                            .data(null)
+                            .build()
+            );
+        } catch (Exception e) {
+            log.error("❌ Failed to create course: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    CustomResponseMessage.builder()
+                            .message("Failed to create course")
+                            .data(null)
+                            .build()
+            );
+        }
+    }
+
+
+    private Instructor createInstructor(InstructorRequest instructor) {
+        Instructor instructorEntity = Instructor.builder()
+                .name(instructor.getName())
+                .bio(instructor.getBio())
+                .experience(instructor.getExperience())
+                .title(instructor.getTitle())
                 .createdAt(LocalDateTime.now())
                 .build();
 
-        log.debug("Saving course: {}", course);
-        Courses savedCourse = courseRepository.save(course);
-        log.info("Course saved with ID: {}", savedCourse.getCourseId());
-
-        return new ResponseEntity<>(
-                CustomResponseMessage.builder()
-                        .message("Course created successfully at: " + savedCourse.getCreatedAt())
-                        .data(CourseResponse.builder()
-                                .CourseId(savedCourse.getCourseId())
-                        )
-                        .build()
-                , HttpStatus.OK);
+        try {
+            log.debug("📚 Saving Instructor: {}", instructorEntity);
+            Instructor saved = instructorRepository.save(instructorEntity);
+            log.info("✅ Instructor saved with ID: {}", saved.getInstructorId());
+            return saved;
+        } catch (Exception e) {
+            log.error("❌ Failed to save Instructor: {} - Error: {}", instructorEntity, e.getMessage(), e);
+            return null;
+        }
     }
+
+
+    private String uploadTitleImage(MultipartFile image) {
+        final List<String> ALLOWED_CONTENT_TYPES = List.of("image/jpeg", "image/png", "image/jpg", "image/webp");
+
+        String contentType = image.getContentType();
+        if (contentType == null || !ALLOWED_CONTENT_TYPES.contains(contentType)) {
+            log.warn("🚫 Invalid content type: {}", contentType);
+            throw new IllegalArgumentException("Only image files (JPEG, PNG, WEBP) are allowed.");
+        }
+
+        try {
+            log.debug("📤 Uploading image to Cloudinary...");
+            Map<?, ?> uploadResult = cloudinary.uploader().upload(
+                    image.getBytes(),
+                    ObjectUtils.asMap("resource_type", "image", "folder", "courses/")
+            );
+
+            String secureUrl = uploadResult.get("secure_url").toString();
+            log.info("✅ Image uploaded successfully. URL: {}", secureUrl);
+            return secureUrl;
+        } catch (IOException e) {
+            log.error("❌ Failed to upload image to Cloudinary: {}", e.getMessage(), e);
+            throw new RuntimeException("Failed to upload image to Cloudinary");
+        }
+    }
+
 
     @Transactional
     public ResponseEntity<CustomResponseMessage<?>>  createSubject(SubjectRequest request) {
@@ -121,7 +219,7 @@ public class CourseService {
 
         Chapter chapter = Chapter.builder()
                 .chapterName(request.getChapterName())
-                .serialNumber(nextSerialNumber)
+                .serialNumber(request.getChapterNo() != null ? request.getChapterNo() : nextSerialNumber)
                 .description(request.getChapterDescription())
                 .createdAt(LocalDateTime.now())
                 .subject(subject)
