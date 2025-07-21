@@ -2,8 +2,8 @@ package com.stream.app.video_upload_service.controller;
 
 import com.stream.app.video_upload_service.dto.ChapterRequest;
 import com.stream.app.video_upload_service.dto.CourseRequest;
+import com.stream.app.video_upload_service.dto.LectureRequest;
 import com.stream.app.video_upload_service.dto.SubjectRequest;
-import com.stream.app.video_upload_service.entities.ContentType;
 import com.stream.app.video_upload_service.payload.CustomResponseMessage;
 import com.stream.app.video_upload_service.services.CourseService;
 import lombok.RequiredArgsConstructor;
@@ -69,45 +69,15 @@ public class CourseController {
         }
     }
 
-//    @PostMapping("/chapters/{chapterId}/lectures")
-//    public ResponseEntity<?> createLecture(@PathVariable Integer chapterId, @RequestBody LectureRequest lectureRequest) {
-//        log.info("Received lecture creation request for chapterId {}: {}", chapterId, lectureRequest);
-//        lectureRequest.setChapterId(chapterId);
-//        try {
-//            return courseService.createLecture(lectureRequest);
-//        } catch (Exception e) {
-//            log.error("Error while creating lecture", e);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body("Failed to create lecture");
-//        }
-//    }
-//
-//
-//    @PostMapping("/{chapterId}/upload-video")
-//    public ResponseEntity<?> uploadLecture(@PathVariable Integer chapterId,
-//                                         @RequestParam("file") MultipartFile file,
-//                                         @RequestParam("title") String title,
-//                                         @RequestParam("description") String description) {
-//        log.info("Received video upload request for chapterID {} with title {}", chapterId, title);
-//        try {
-//            return courseService.uploadLecture(chapterId, file, title, description);
-//        } catch (Exception e) {
-//            log.error("Error while uploading video", e);
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body("Failed to upload video");
-//        }
-//    }
-
-    @PostMapping("/chapters/{chapterId}/lectures/upload")
+    @PostMapping(value = "/chapters/{chapterId}/lectures/upload" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CustomResponseMessage<?>> uploadAndSaveLecture(@PathVariable Integer chapterId,
-                                                  @RequestParam("serialNo")Integer serialNo,
-                                                  @RequestParam("file") MultipartFile file,
-                                                  @RequestParam("title") String title,
-                                                  @RequestParam("content") String content,
-                                                  @RequestParam("contentType") ContentType contentType) {
-        log.info("Received lecture upload + save request for chapterID {} with title {}", chapterId, title);
+                                                                         @RequestPart("lecture")LectureRequest request ,
+                                                                         @RequestPart("file") MultipartFile file
+    ) {
+        log.info("Received lecture upload + save request for chapterID {} with title {}", chapterId, request.getLectureName());
+        request.setChapterId(chapterId);
         try {
-            return courseService.uploadAndSaveLecture(chapterId,serialNo, file, title, content, contentType);
+            return courseService.uploadAndSaveLecture(request , file);
         } catch (Exception e) {
             log.error("Error while uploading and saving lecture", e);
             return new ResponseEntity<>(CustomResponseMessage.builder()

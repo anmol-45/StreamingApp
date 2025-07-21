@@ -240,94 +240,23 @@ public class CourseService {
                         .build()
                 , HttpStatus.OK);
     }
-
-//    public ResponseEntity<?> createLecture(LectureRequest request) {
-//
-//        Optional<Chapter> optionalChapter = chapterRepository.findById(request.getChapterId());
-//        if(optionalChapter.isEmpty()) {
-//            throw new RuntimeException("Chapter not found");
-//        }
-//        Lecture lecture = new Lecture();
-//        lecture.setSerialNumber(optionalChapter.get().getChapterId()+1); //check how to do it
-//        lecture.setLectureName(request.getLectureName());
-//        lecture.setDescription(request.getLectureDescription());
-//        lecture.setContentType(request.getLectureType());
-//        lecture.setContentURL(request.getLectureUrl());
-//        lecture.setChapter(optionalChapter.get());
-//        lecture.setCreatedAt(LocalDateTime.now());
-//
-//        try{
-//
-//            log.debug("Saving Lecture: {}", lecture);
-//            lectureRepository.save(lecture);
-//
-//            return new ResponseEntity<>(
-//                    LectureResponse.builder()
-//                            .lectureId(lecture.getLectureId())
-//                            .lectureNo(lecture.getSerialNumber())
-//                            .message("lecture created successfully at : " + lecture.getCreatedAt())
-//                    , HttpStatus.OK);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    public ResponseEntity<?> uploadLecture(Integer chapterId, MultipartFile file, String title, String Description) {
-//        log.info("Starting upload for video title: {}", title);
-//
-//        try {
-//            Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
-//                    "resource_type", "video"
-//            ));
-//
-//            String url = (String) uploadResult.get("secure_url");
-//            log.info("Video uploaded successfully to Cloudinary. URL: {}", url);
-//
-//            Chapter chapter = chapterRepository.findById(chapterId)
-//                    .orElseThrow(() -> new RuntimeException("Chapter not found"));
-//
-//
-//            Lecture content = new Lecture();
-//            content.setChapter(chapter);
-//            content.setLectureName(title);
-//            content.setContentType(ContentType.VIDEO);
-//            content.setContentURL(url);
-//            content.setSerialNumber(1);
-//            content.setCreatedAt(LocalDateTime.now());
-//
-//
-//            lectureRepository.save(content);
-//
-//            log.info("lecture saved successfully at URL: {}", url);
-//            return new ResponseEntity<>("lecture saved successfully: \n contentId: " + content.getLectureId() + "\n url: "+ content.getContentURL() , HttpStatus.OK);
-//
-//        } catch (IOException e) {
-//            log.error("Video upload failed due to IOException: {}", e.getMessage());
-//            return null;
-//        }
-//    }
     @Transactional
-    public ResponseEntity<CustomResponseMessage<?>>  uploadAndSaveLecture(Integer chapterId,
-                                                  Integer serialNo,
-                                                  MultipartFile file,
-                                                  String title,
-                                                  String description,
-                                                  ContentType contentType) {
-        log.info("Starting upload for lecture: {}", title);
+    public ResponseEntity<CustomResponseMessage<?>>  uploadAndSaveLecture(LectureRequest request ,MultipartFile file) {
+        log.info("Starting upload for lecture: {}", request.getLectureName());
 
         try {
             Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
-                    "resource_type", contentType == ContentType.VIDEO ? "video" : "auto"
+                    "resource_type", request.getLectureType() == ContentType.VIDEO ? "video" : "auto"
             ));
             String url = (String) uploadResult.get("secure_url");
-            log.info("{} uploaded successfully. URL: {}", contentType, url);
+            log.info("{} uploaded successfully. URL: {}", request.getLectureType(), url);
 
-            Optional<Chapter> optionalChapter = chapterRepository.findById(chapterId);
+            Optional<Chapter> optionalChapter = chapterRepository.findById(request.getChapterId());
             if (optionalChapter.isEmpty()) {
-                log.warn("❌ Chapter not found with ID: {}", chapterId);
+                log.warn("❌ Chapter not found with ID: {}", request.getChapterId());
                 return new ResponseEntity<>(
                         CustomResponseMessage.builder()
-                                .message("Chapter not found with ID: " + chapterId)
+                                .message("Chapter not found with ID: " + request.getChapterId())
                                 .data(null)
                                 .build(),
                         HttpStatus.NOT_FOUND
@@ -336,15 +265,15 @@ public class CourseService {
 
             Chapter chapter = optionalChapter.get();
 
-            Integer maxSerialNumber = lectureRepository.findMaxSerialNumberByChapterId(chapterId);
+            Integer maxSerialNumber = lectureRepository.findMaxSerialNumberByChapterId(request.getChapterId());
             int nextSerialNumber = (maxSerialNumber != null ? maxSerialNumber : 0) + 1;
 
             Lecture lecture = Lecture.builder()
-                    .lectureName(title)
-                    .description(description)
-                    .contentType(contentType)
+                    .lectureName(request.getLectureName())
+                    .description(request.getLectureDescription())
+                    .contentType(request.getLectureType())
                     .contentURL(url)
-                    .serialNumber(serialNo != null ? serialNo: nextSerialNumber)
+                    .serialNumber(request.getSerialNo() != null ? request.getSerialNo(): nextSerialNumber)
                     .chapter(chapter)
                     .createdAt(LocalDateTime.now())
                     .build();

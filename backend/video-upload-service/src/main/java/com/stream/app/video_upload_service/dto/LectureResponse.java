@@ -15,6 +15,5 @@ import java.util.List;
 public class LectureResponse {
     private Integer lectureId;
     private Integer lectureNo;
-    private String message;
     private List<String> urls;
 }

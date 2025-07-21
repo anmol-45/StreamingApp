@@ -5,15 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9214294e-a94f-4cc9-816d-77f510104b4b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/InstructorRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Instructor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/repositories/InstructorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-stream-service/src/main/java/com/stream/app/video_stream_service/config/CloudConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-stream-service/src/main/java/com/stream/app/video_stream_service/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-stream-service/src/main/java/com/stream/app/video_stream_service/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-stream-service/src/main/java/com/stream/app/video_stream_service/filters/JwtAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-stream-service/src/main/java/com/stream/app/video_stream_service/util/RsaKeyUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/video-stream-service/src/main/resources/public_key.pem" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/api-gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api-gateway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/authService/userService/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/user-service/src/main/java/com/stream/app/user_service/services/authService/userService/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-stream-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-stream-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-stream-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-stream-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/controller/CourseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/ChapterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/ChapterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/CourseResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Courses.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/entities/Courses.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/LectureRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/LectureRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/LectureResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/dto/LectureResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/video-upload-service/src/main/java/com/stream/app/video_upload_service/services/CourseService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +80,7 @@
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "feature/video-upload-service",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/AnmolKumar/Desktop/StreamingApp/backend/video-upload-service/src/main/resources",
+    "last_opened_file_path": "C:/Users/AnmolKumar/Desktop/StreamingApp/backend/video-stream-service/src/main/java/com/stream/app/video_stream_service",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -85,11 +92,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\AnmolKumar\Desktop\StreamingApp\backend\video-stream-service\src\main\java\com\stream\app\video_stream_service" />
+      <recent name="C:\Users\AnmolKumar\Desktop\StreamingApp\backend\video-stream-service\src\main\resources" />
       <recent name="C:\Users\AnmolKumar\Desktop\StreamingApp\backend\video-upload-service\src\main\resources" />
       <recent name="C:\Users\AnmolKumar\Desktop\StreamingApp\backend\video-upload-service\src\main\java\com\stream\app\video_upload_service" />
       <recent name="C:\Users\KIIT\Desktop\StreamingApp\backend\video-upload-service\src\main\java\com\stream\app\video_upload_service" />
-      <recent name="C:\Users\KIIT\Desktop\StreamingApp\backend\api-gateway\src\main\java\com\stream\app\api_gateway" />
-      <recent name="C:\Users\KIIT\Desktop\StreamingApp\backend\api-gateway\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.stream.app.video_upload_service.dto" />
@@ -122,7 +129,9 @@
       <workItem from="1752493558400" duration="426000" />
       <workItem from="1752588944752" duration="9793000" />
       <workItem from="1752662043055" duration="9849000" />
-      <workItem from="1752860379121" duration="13445000" />
+      <workItem from="1752860379121" duration="16062000" />
+      <workItem from="1753076783425" duration="7895000" />
+      <workItem from="1753108322076" duration="5348000" />
     </task>
     <servers />
   </component>
