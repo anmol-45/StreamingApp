@@ -1,7 +1,7 @@
-package com.stream.app.video_upload_service.config;
+package com.stream.app.video_stream_service.config;
 
 
-import com.stream.app.video_upload_service.filters.JwtAuthenticationFilter;
+import com.stream.app.video_stream_service.filters.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -14,9 +14,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class LectureRequest {
     private Integer chapterId;
+    private Integer serialNo;
     private String lectureName;
     private String lectureDescription;
     private ContentType lectureType;
-    private String lectureUrl;
-
 }
