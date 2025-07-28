@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,5 +31,6 @@ public class User {
     private Role role;
 
     private boolean isPremium = false;
+    private List<Long> courseId;
 
 }

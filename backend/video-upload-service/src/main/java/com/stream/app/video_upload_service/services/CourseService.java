@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -300,6 +301,44 @@ public class CourseService {
             return new ResponseEntity<>(
                     CustomResponseMessage.builder()
                             .message("Failed to upload file")
+                            .data(null)
+                            .build(),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public ResponseEntity<CustomResponseMessage<?>> getAllCourses() {
+        try {
+            List<Courses> coursesList = courseRepository.findAll();
+
+            if (coursesList.isEmpty()) {
+                log.warn("No courses found in the database.");
+
+                return new ResponseEntity<>(
+                        CustomResponseMessage.builder()
+                                .message("No courses available")
+                                .data(Collections.emptyList())
+                                .build(),
+                        HttpStatus.NOT_FOUND
+                );
+            }
+
+            log.info("Successfully fetched {} courses.", coursesList.size());
+
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("Courses successfully fetched")
+                            .data(coursesList)
+                            .build(),
+                    HttpStatus.OK
+            );
+        } catch (Exception ex) {
+            log.error("Error occurred while fetching courses: {}", ex.getMessage(), ex);
+
+            return new ResponseEntity<>(
+                    CustomResponseMessage.builder()
+                            .message("Failed to fetch courses due to an internal error")
                             .data(null)
                             .build(),
                     HttpStatus.INTERNAL_SERVER_ERROR

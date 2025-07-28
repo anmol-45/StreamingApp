@@ -1,6 +1,5 @@
 package com.stream.app.user_service.controllers;
 
-import com.stream.app.user_service.dto.UserInfo;
 import com.stream.app.user_service.payload.CustomResponseMessage;
 import com.stream.app.user_service.services.authService.userService.UserService;
 import jakarta.servlet.http.HttpServletRequest;
