@@ -24,7 +24,6 @@ public class AuthController {
     private final AuthService authService;
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-
     private final RestTemplate restTemplate;
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
@@ -38,7 +37,6 @@ public class AuthController {
      */
     @PostMapping("/send-otp")
     public ResponseEntity<CustomResponseMessage<?>> sendOtp(@RequestBody OtpRequestDto otpRequest , HttpServletRequest request) {
-
         otpRequest.setIp(request.getRemoteAddr());
         otpRequest.setDevice(request.getHeader("User-Agent"));
         //completed proper response code

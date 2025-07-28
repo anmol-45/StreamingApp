@@ -16,5 +16,6 @@ public class UserInfo {
     private boolean isPremium;
     private String phoneNumber;
     private Role role;
+    private List<Long> courseId;
 //    private List<Courses> Courses;
 }

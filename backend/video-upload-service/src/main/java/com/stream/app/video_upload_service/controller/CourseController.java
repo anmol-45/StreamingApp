@@ -6,6 +6,7 @@ import com.stream.app.video_upload_service.dto.LectureRequest;
 import com.stream.app.video_upload_service.dto.SubjectRequest;
 import com.stream.app.video_upload_service.payload.CustomResponseMessage;
 import com.stream.app.video_upload_service.services.CourseService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -19,6 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 public class CourseController {
 
     private final CourseService courseService;
+
+    @GetMapping("/allCourses")
+    public ResponseEntity<CustomResponseMessage<?>> getAllCourses(){
+        return courseService.getAllCourses();
+    }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CustomResponseMessage<?>> createCourse(
